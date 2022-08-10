@@ -1,11 +1,14 @@
 # Prerequisites
 *.d
+*.user
+build/.vs/
 
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+build/obj/
 
 # Linker output
 *.ilk
