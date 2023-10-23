@@ -4,7 +4,7 @@ dnl Copyright (C) 2019-2023 Ulrich Telle <ulrich@telle-online.de>
 dnl
 dnl This file is covered by the same licence as the entire SQLite3 Multiple Ciphers package.
 
-AC_INIT([sqlite3mc], [1.6.5], [ulrich@telle-online.de])
+AC_INIT([sqlite3mc], [1.7.2], [ulrich@telle-online.de])
 
 dnl This is the version tested with, might work with earlier ones.
 AC_PREREQ([2.69])
@@ -154,6 +154,32 @@ AS_CASE([$host_cpu],
 AM_CONDITIONAL([HOST_X86], [test x$hostX86 = xtrue])
 AM_CONDITIONAL([HOST_ARM], [test x$hostARM = xtrue])
 AM_CONDITIONAL([HAVE_ZLIB], [test x$haveZLib = xtrue])
+
+dnl Detect the target system
+
+build_linux=no
+build_windows=no
+build_mac=no
+
+case "${host_os}" in
+    linux*)
+        build_linux=yes
+        ;;
+    cygwin*|mingw*)
+        build_windows=yes
+        ;;
+    darwin*)
+        build_mac=yes
+        ;;
+    *)
+        AC_MSG_ERROR(["OS $host_os is not supported"])
+        ;;
+esac
+
+dnl Pass the conditionals to automake
+AM_CONDITIONAL([HOST_LINUX], [test "$build_linux" = "yes"])
+AM_CONDITIONAL([HOST_WINDOWS], [test "$build_windows" = "yes"])
+AM_CONDITIONAL([HOST_OSX], [test "$build_mac" = "yes"])
 
 AC_SUBST(SQLITE3MC_LIBNAME, "sqlite3mc")
 AC_SUBST( LIBDIR, "lib" )
