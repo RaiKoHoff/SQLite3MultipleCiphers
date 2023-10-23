@@ -370,14 +370,14 @@ fail:
   return 0;
 }
 
-#if defined(__APPLE__) && defined(__MAC_10_12) && !defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
-#include <sys/random.h>
+#if defined(__APPLE__)
+#include <Security/SecRandom.h>
 #endif
 
 static size_t entropy(void* buf, size_t n)
 {
-#if defined(__APPLE__) && defined(__MAC_10_12) && __MAC_OS_X_VERSION_MAX_ALLOWED >= __MAC_10_12
-  if (getentropy(buf, n) == 0)
+#if defined(__APPLE__)
+  if (SecRandomCopyBytes(kSecRandomDefault, n, (uint8_t*) buf) == 0)
     return n;
 #elif defined(__linux__) && defined(SYS_getrandom)
   if (syscall(SYS_getrandom, buf, n, 0) == n)

@@ -7,6 +7,33 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.2] - 2023-10-11
+
+### Changed
+
+- Based on SQLite version 3.43.2
+
+## [1.7.1] - 2023-10-09
+
+### Added
+
+- Added compile time option to omit AES hardware support
+
+### Fixed
+
+- Fixed autoconf/automake build files to be usable with msys/mingw
+
+## [1.7.0] - 2023-10-03
+
+### Added
+
+- Added `PRAGMA memory_security` to allow to clear memory before it is freed. This feature can have a considerable impact on performance and is therefore disabled by default.
+
+### Fixed
+
+- Fixed issue [#118](../../issues/118)) - tvOS/watchOS compilation errors. On Apple platforms the function `SecRandomCopyBytes()` will now be used instead of `getentropy()`.
+- Fixed issue [#119](../../issues/119)) - `PRAGMA mmap_size` conflicts with encrypted databases, a check has been added to allow this pragma for unencrypted databases.
+
 ## [1.6.5] - 2023-09-14
 
 ### Changed
@@ -403,7 +430,9 @@ The following ciphers are supported:
 - AES 256 Bit CBC - SHA1/SHA256/SHA512 HMAC ([SQLCipher](https://www.zetetic.net/sqlcipher/), database versions 1, 2, 3, and 4)
 - RC4 - No HMAC ([System.Data.SQLite](http://system.data.sqlite.org))
 
-[Unreleased]: ../../compare/v1.6.5...HEAD
+[Unreleased]: ../../compare/v1.7.1...HEAD
+[1.7.1]: ../../compare/v1.7.0...v1.7.1
+[1.7.0]: ../../compare/v1.6.5...v1.7.0
 [1.6.5]: ../../compare/v1.6.4...v1.6.5
 [1.6.4]: ../../compare/v1.6.3...v1.6.4
 [1.6.3]: ../../compare/v1.6.2...v1.6.3
